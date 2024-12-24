@@ -73,8 +73,8 @@ public class FiliereActivity extends AppCompatActivity {
                 }
 
                 //recycler view
-                RecyclerView recyclerView = findViewById(R.id.notesRecyclerView);
-                FiliereAdapter adapter = new FiliereAdapter(this, filieres);
+                RecyclerView recyclerView = findViewById(R.id.recyclerView);
+                FiliereAdapter adapter = new FiliereAdapter(this, filieres, this);
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

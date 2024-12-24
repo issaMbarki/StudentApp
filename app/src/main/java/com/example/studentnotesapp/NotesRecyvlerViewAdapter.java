@@ -37,7 +37,7 @@ public class NotesRecyvlerViewAdapter extends RecyclerView.Adapter<NotesRecyvler
         }
         holder.subjectName.setText(subjectName);
         holder.noteSurVingt.setText(subjectGrades.get(position).getNote().toString() + "/20");
-        holder.subjectImg.setImageResource(R.drawable.ic_launcher_foreground);
+        //holder.subjectImg.setImageResource(R.drawable.ic_launcher_foreground);
     }
 
     @Override
@@ -46,15 +46,15 @@ public class NotesRecyvlerViewAdapter extends RecyclerView.Adapter<NotesRecyvler
     }
 
     public static class NoteHolder extends RecyclerView.ViewHolder {
-        ImageView subjectImg;
+        //ImageView subjectImg;
         TextView subjectName;
         TextView noteSurVingt;
 
         public NoteHolder(@NonNull View itemView) {
             super(itemView);
-            subjectImg = itemView.findViewById(R.id.imageView);
-            subjectName = itemView.findViewById(R.id.textView);
-            noteSurVingt = itemView.findViewById(R.id.noteSurVingt);
+            //subjectImg = itemView.findViewById(R.id.imageView);
+            subjectName = itemView.findViewById(R.id.subjectName);
+            noteSurVingt = itemView.findViewById(R.id.noteOutOfTwenty);
 
         }
     }

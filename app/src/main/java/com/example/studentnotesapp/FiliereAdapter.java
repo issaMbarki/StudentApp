@@ -4,6 +4,7 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -16,16 +17,23 @@ public class FiliereAdapter extends RecyclerView.Adapter<FiliereAdapter.FiliereH
     private final List<Filiere> filieres;
     private final Context context;
 
-    public FiliereAdapter(Context context, List<Filiere> filieres) {
+    public interface OnFiliereClickListener {
+        void onFiliereClick(Filiere filiere);
+    }
+
+    private final OnFiliereClickListener listener;
+
+    public FiliereAdapter(Context context, List<Filiere> filieres, OnFiliereClickListener listener) {
         this.filieres = filieres;
         this.context = context;
+        this.listener = listener;
     }
 
     @NonNull
     @Override
     public FiliereAdapter.FiliereHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(context);
-        View view = inflater.inflate(R.layout.note_row, parent, false);
+        View view = inflater.inflate(R.layout.filiere_row, parent, false);
         return new FiliereAdapter.FiliereHolder(view);
     }
 
@@ -35,9 +43,12 @@ public class FiliereAdapter extends RecyclerView.Adapter<FiliereAdapter.FiliereH
         if (nomFiliere.length() > 18) {
             nomFiliere = nomFiliere.substring(0, 18).concat("...");
         }
+
         holder.filiereName.setText(nomFiliere);
         holder.filiereDescription.setText(filieres.get(position).getDescription());
         holder.filiereImg.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.itemView.setOnClickListener(v -> listener.onFiliereClick(filieres.get(position)));
+
     }
 
     @Override
@@ -52,8 +63,9 @@ public class FiliereAdapter extends RecyclerView.Adapter<FiliereAdapter.FiliereH
 
         public FiliereHolder(@NonNull View itemView) {
             super(itemView);
+            System.out.println("=====>" + itemView.findViewById(R.id.filiereName));
             filiereImg = itemView.findViewById(R.id.filiereImage);
-            filiereDescription = itemView.findViewById(R.id.textView);
+            filiereDescription = itemView.findViewById(R.id.filiereDescription);
             filiereName = itemView.findViewById(R.id.filiereName);
 
         }
