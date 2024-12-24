@@ -1,5 +1,6 @@
 package com.example.studentnotesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -32,22 +33,30 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private Button btnPrevious, btnNext;
-    private ArrayList<Student> students = new ArrayList<>();
     private int currentIndex = 0;
     private TextView studentName;
     private ImageView studentImage;
     private TextView studentMoyenne;
+    private List<Student> students;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        currentIndex = getIntent().getIntExtra("position", 0);
+        //Student student = (Student) getIntent().getSerializableExtra("student");
+        students = (ArrayList<Student>) getIntent().getSerializableExtra("students");
+
+
+        //recycler view
+//        RecyclerView recyclerView = findViewById(R.id.notesRecyclerView);
+//        NotesRecyvlerViewAdapter adapter = new NotesRecyvlerViewAdapter(this, students.get(currentIndex).getSubjectsGrades());
+//        recyclerView.setAdapter(adapter);
+//        recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
         btnPrevious = findViewById(R.id.btnPrevious);
         btnNext = findViewById(R.id.btnNext);
 
-        // Charger les données depuis l'API
-        fetchStudentData();
 
         // Ajouter les événements des boutons
         btnPrevious.setOnClickListener(v -> showPreviousStudent());
@@ -56,41 +65,9 @@ public class MainActivity extends AppCompatActivity {
         studentName = (TextView) findViewById(R.id.studentName);
         studentImage = (ImageView) findViewById(R.id.studentImage);
         studentMoyenne = (TextView) findViewById(R.id.moyenne);
+        showStudent(currentIndex);
     }
 
-    // Méthode pour récupérer les données via l'API
-    private void fetchStudentData() {
-        String url = "http://159.223.212.217:3000/students"; // URL locale pour JSON Server
-        RequestQueue queue = Volley.newRequestQueue(this);
-        JsonArrayRequest jsonArrayRequest = new JsonArrayRequest(Request.Method.GET, url, null, response -> {
-            try {
-                for (int i = 0; i < response.length(); i++) {
-                    JSONObject studentJson = response.getJSONObject(i);
-                    String nom = studentJson.getString("nom");
-                    String prenom = studentJson.getString("prenom");
-                    String filiere = studentJson.getString("filiere");
-                    List<SubjectGrades> subjectsGrades = new ArrayList<>();
-                    JSONObject notesJson = studentJson.getJSONObject("notes");
-                    for (Iterator<String> it = notesJson.keys(); it.hasNext(); ) {
-                        String subjectName = it.next();
-                        double value = notesJson.getDouble(subjectName);
-                        subjectsGrades.add(new SubjectGrades(subjectName, value));
-                    }
-                    students.add(new Student(nom, prenom, filiere, subjectsGrades));
-                }
-
-                // Afficher le premier étudiant
-                showStudent(currentIndex);
-
-            } catch (JSONException e) {
-                e.printStackTrace();
-            }
-        }, error -> {
-            Toast.makeText(this, "Erreur de récupération des données" + error, Toast.LENGTH_LONG).show();
-        });
-
-        queue.add(jsonArrayRequest);
-    }
 
     // Méthode pour afficher les informations d'un étudiant
     private void showStudent(int index) {

@@ -1,6 +1,8 @@
 package com.example.studentnotesapp;
 
-public class SubjectGrades {
+import java.io.Serializable;
+
+public class SubjectGrades implements Serializable {
     private final String subjectName;
     private final double note;
 

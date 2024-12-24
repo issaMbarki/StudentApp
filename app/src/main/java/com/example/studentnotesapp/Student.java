@@ -1,10 +1,11 @@
 package com.example.studentnotesapp;
 
+import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-public class Student {
+public class Student implements Serializable {
     private final String nom;
     private final String prenom;
     private final String filiere;

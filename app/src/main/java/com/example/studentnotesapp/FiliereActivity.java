@@ -1,5 +1,6 @@
 package com.example.studentnotesapp;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.widget.Toast;
 
@@ -54,8 +55,6 @@ public class FiliereActivity extends AppCompatActivity {
                     // Iterate over the students JSONArray
                     for (int j = 0; j < studentsArray.length(); j++) {
                         JSONObject studentJson = studentsArray.getJSONObject(j); // Get the current student as JSONObject
-
-
                         String nom = studentJson.getString("nom");
                         String prenom = studentJson.getString("prenom");
                         JSONObject notesJson = studentJson.getJSONObject("notes");
@@ -74,7 +73,12 @@ public class FiliereActivity extends AppCompatActivity {
 
                 //recycler view
                 RecyclerView recyclerView = findViewById(R.id.recyclerView);
-                FiliereAdapter adapter = new FiliereAdapter(this, filieres, this);
+                FiliereAdapter adapter = new FiliereAdapter(this, filieres, filiere -> {
+                    Intent studentsIntent = new Intent(getApplicationContext(), StudentsActivity.class);
+                    ArrayList<Student> studentList = new ArrayList<>(filiere.getStudents());
+                    studentsIntent.putExtra("students", studentList);
+                    startActivity(studentsIntent);
+                });
                 recyclerView.setAdapter(adapter);
                 recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
