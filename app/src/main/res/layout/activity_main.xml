@@ -5,9 +5,10 @@
     android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:paddingHorizontal="15dp"
     tools:context=".MainActivity">
 
-    <!-- LinearLayout principal pour l'étudiant -->
+
     <LinearLayout
         android:id="@+id/studentContainer"
         android:layout_width="match_parent"
@@ -19,7 +20,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <!-- Image de l'étudiant -->
+
         <ImageView
             android:id="@+id/studentImage"
             android:layout_width="100dp"
@@ -28,7 +29,7 @@
             android:scaleType="centerCrop"
              />
 
-        <!-- Nom et prénom -->
+
         <TextView
             android:id="@+id/studentName"
             android:layout_width="wrap_content"
@@ -39,7 +40,7 @@
             android:textSize="18sp"
             android:textStyle="bold" />
 
-        <!-- Moyenne -->
+
         <TextView
             android:id="@+id/moyenne"
             android:layout_width="wrap_content"
@@ -49,7 +50,6 @@
             android:textSize="16sp" />
     </LinearLayout>
 
-    <!-- RecyclerView pour les notes -->
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/notesRecyclerView"
         android:layout_width="match_parent"
@@ -60,13 +60,11 @@
         app:layout_constraintTop_toBottomOf="@id/studentContainer"
         tools:listitem="@layout/note_row" />
 
-    <!-- Boutons de navigation -->
     <Button
         android:id="@+id/btnPrevious"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="10dp"
-        android:layout_marginBottom="16dp"
         android:text="Précédent"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
@@ -76,7 +74,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginEnd="10dp"
-        android:layout_marginBottom="16dp"
+
         android:text="Suivant"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />

@@ -11,6 +11,8 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.squareup.picasso.Picasso;
+
 import java.util.List;
 
 public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentHolder> {
@@ -46,7 +48,13 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentH
 
         holder.StudentName.setText(studentFullName);
         holder.StudentMoyenne.setText(students.get(position).calculMoyenne().toString() + "/20");
-        holder.StudentImage.setImageResource(R.drawable.ic_launcher_foreground);
+        // Charger l'image avec Picasso
+        Picasso.get()
+                .load(students.get(position).getImage())
+                // .placeholder(R.drawable.placeholder) // Optionnel : image de chargement
+                //.error(R.drawable.error) // Optionnel : image en cas d'erreur
+                .into(holder.StudentImage);
+
         holder.itemView.setOnClickListener(v -> listener.onStudentClick(position));
 
     }

@@ -46,7 +46,7 @@ public class FiliereAdapter extends RecyclerView.Adapter<FiliereAdapter.FiliereH
 
         holder.filiereName.setText(nomFiliere);
         holder.filiereDescription.setText(filieres.get(position).getDescription());
-        holder.filiereImg.setImageResource(R.drawable.ic_launcher_foreground);
+        holder.filiereImg.setImageResource(R.mipmap.filiere);
         holder.itemView.setOnClickListener(v -> listener.onFiliereClick(filieres.get(position)));
 
     }
